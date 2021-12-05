@@ -10,7 +10,13 @@ This example allows s3 access for the github actions role.
 module "github_actions_access_role" {
   source = "git::ssh://git@github.com/janstuemmel/github-aws-oidc-auth"
 
-  github_repos    = [
+  // optional
+  role_name = "GithubActionsAccessRole"
+  role_dec  = "Optional GithubActionsAccessRole description" 
+  role_tags = { foo = "some tag" }
+ 
+  // required
+  github_repos = [
     "janstuemmel/some-repo:ref:refs/heads/master"
     "janstuemmel/other-repo:*"
   ]
@@ -19,8 +25,7 @@ module "github_actions_access_role" {
 resource "aws_iam_policy" "github_policy" {
   name        = "GithubActionsAccessRolePolicy"
   description = "Allow github actions access"
-
-  policy = data.aws_iam_policy_document.github_role.json
+  policy      = data.aws_iam_policy_document.github_role.json
 }
 
 resource "aws_iam_role_policy_attachment" "github_role_policy_attachment" {
@@ -30,11 +35,8 @@ resource "aws_iam_role_policy_attachment" "github_role_policy_attachment" {
 
 data "aws_iam_policy_document" "github_role" {
   statement {
-    effect  = "Allow"
-    actions = [
-      "s3:*"
-    ]
-
+    effect   = "Allow"
+    actions  = ["s3:*"]
     resources = ["*"]
   }
 }
