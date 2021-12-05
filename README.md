@@ -7,6 +7,8 @@ Aws role to authenticate with github actions. Can be used with the official [aws
 This example allows s3 access for the github actions role.
 
 ```hcl
+// example terraform main.tf file
+
 module "github_actions_access_role" {
   source = "git::ssh://git@github.com/janstuemmel/github-aws-oidc-auth?ref=0.2.0"
 
@@ -40,6 +42,35 @@ data "aws_iam_policy_document" "github_role" {
     resources = ["*"]
   }
 }
+```
+
+```yaml
+# example github actions workflow file
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  s3:
+    runs-on: ubuntu-latest
+
+    # set permissions for oidc token auth
+    permissions:
+      id-token: write
+      contents: write
+      
+    steps:
+      # configure auth, needs aws account id
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/GithubActionsAccessRole
+          aws-region: eu-central-1
+
+      # run aws cli script
+      - run: aws s3 ls
 ```
 
 ## Resources
