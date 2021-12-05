@@ -41,3 +41,6 @@ data "aws_iam_policy_document" "github_role" {
   }
 }
 ```
+
+## Resources
+* [Configure OpenID Connect for GithubActions](https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/configuring-openid-connect-in-amazon-web-services)
