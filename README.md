@@ -8,7 +8,7 @@ This example allows s3 access for the github actions role.
 
 ```hcl
 module "github_actions_access_role" {
-  source = "git::ssh://git@github.com/janstuemmel/github-aws-oidc-auth"
+  source = "git::ssh://git@github.com/janstuemmel/github-aws-oidc-auth?ref=0.2.0"
 
   // optional
   role_name = "GithubActionsAccessRole"
