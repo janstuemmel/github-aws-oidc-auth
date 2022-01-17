@@ -10,17 +10,17 @@ This example allows s3 access for the github actions role.
 // example terraform main.tf file
 
 module "github_actions_access_role" {
-  source = "git::ssh://git@github.com/janstuemmel/github-aws-oidc-auth?ref=0.2.0"
+  source = "git::ssh://git@github.com/janstuemmel/github-aws-oidc-auth?ref=0.3.0"
 
   // optional
   role_name = "GithubActionsAccessRole"
-  role_dec  = "Optional GithubActionsAccessRole description" 
+  role_desc  = "Optional GithubActionsAccessRole description" 
   role_tags = { foo = "some tag" }
  
   // required
   github_repos = [
-    "janstuemmel/some-repo:ref:refs/heads/master"
-    "janstuemmel/other-repo:*"
+    "janstuemmel/some-repo:ref:refs/heads/master",
+    "janstuemmel/other-repo:*",
   ]
 }
 
