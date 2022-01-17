@@ -21,7 +21,7 @@ variable "role_tags" {
 variable "thumbprint_list" {
   description = "Thumbprint list for oidc provider"
   type        = set(string)
-  default     = ["a031c46782e6e6c662c2c87c76da9aa62ccabd8e"]
+  default     = ["15e29108718111e59b3dad31954647e3c344a231"]
 }
 
 // required
